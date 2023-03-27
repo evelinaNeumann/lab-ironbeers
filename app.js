@@ -3,7 +3,7 @@ const hbs = require('hbs');
 const path = require('path');
 const PunkAPIWrapper = require('punkapi-javascript-wrapper');
 const app = express();
-const punkAPI = new PunkAPIWrapper();
+const punkAPI = new PunkAPIWrapper;
 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
@@ -35,15 +35,12 @@ app.get('/beers', (req, res) => {
 });
 
 app.get('/random-beer', (req, res) => {
-  punkAPI
-    .getRandomBeer()
-    .then(randomBeer => {
+  punkAPI.getRandom()
+    .then(beersFromApi => {
+      const randomBeer = beersFromApi[0];
       res.render('random-beer', { randomBeer });
     })
-    .catch(error => {
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 });
-
 app.listen(3000, () => console.log('🏃‍ on port 3000'));
 
